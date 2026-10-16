@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="مرجع عربي تفاعلي لشرح أهم وسوم HTML مع أمثلة عملية.">
+  <link rel="manifest" href="./manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#173b57">
+  <title>مرجع وسوم HTML — شرح وأمثلة</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172b3a;
+      --muted: #64748b;
+      --paper: #f4f7fa;
+      --card: #ffffff;
+      --line: #dbe4ec;
+      --brand: #176b87;
+      --brand-dark: #124e67;
+      --code: #102331;
+      --accent: #e5f4f7;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.85;
+    }
+    a { color: var(--brand); }
+    button, input { font: inherit; }
+    .hero {
+      color: white;
+      background: linear-gradient(135deg, #102f46, #176b87);
+      padding: 42px 20px 35px;
+    }
+    .hero-inner, .layout, footer { width: min(1160px, 100% - 32px); margin-inline: auto; }
+    .eyebrow { color: #bce8ef; font-size: .9rem; font-weight: 700; }
+    h1 { margin: 8px 0; font-size: clamp(1.8rem, 5vw, 3rem); line-height: 1.3; }
+    .hero p { max-width: 720px; margin: 10px 0 20px; color: #e1f1f5; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-stats span { border: 1px solid #ffffff45; background: #ffffff12; border-radius: 999px; padding: 5px 12px; font-size: .9rem; }
+    .layout { display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 22px; padding-block: 25px 45px; align-items: start; }
+    aside { position: sticky; top: 14px; max-height: calc(100vh - 28px); overflow: auto; }
+    .side-card, .intro, .tag-card, .search-box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+    .side-card { padding: 16px; }
+    .side-card h2 { font-size: 1rem; margin: 0 0 10px; }
+    .nav-list { display: grid; gap: 4px; }
+    .nav-list a { text-decoration: none; color: var(--ink); padding: 6px 9px; border-radius: 8px; font-size: .93rem; }
+    .nav-list a:hover, .nav-list a:focus { background: var(--accent); outline-color: var(--brand); }
+    main { min-width: 0; }
+    .intro { padding: 20px; margin-bottom: 16px; }
+    .intro h2 { margin: 0 0 8px; }
+    .intro p { margin: 6px 0; }
+    .search-box { padding: 12px; display: flex; gap: 10px; margin-bottom: 18px; }
+    .search-box input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: white; color: var(--ink); }
+    .search-box input:focus { outline: 2px solid #77bdce; border-color: var(--brand); }
+    .count { color: var(--muted); font-size: .9rem; align-self: center; white-space: nowrap; }
+    .category { margin: 24px 0 10px; font-size: 1.35rem; }
+    .category-note { color: var(--muted); margin-top: -4px; }
+    .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .tag-card { padding: 17px; min-width: 0; scroll-margin-top: 20px; }
+    .tag-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .tag-name { margin: 0; font-size: 1.15rem; direction: ltr; text-align: left; overflow-wrap: anywhere; }
+    code.tag { color: #075d78; background: #e5f4f7; padding: 3px 7px; border-radius: 7px; font-size: .95em; }
+    .badge { flex: none; border-radius: 999px; padding: 2px 8px; font-size: .75rem; font-weight: 700; background: #e7edf2; color: #46596a; }
+    .badge.old { background: #fff0d8; color: #87520b; }
+    .badge.form { background: #e6f5e9; color: #246b39; }
+    .tag-card p { margin: 10px 0; }
+    .meta { color: var(--muted); font-size: .88rem; }
+    .example-label { font-size: .85rem; font-weight: 700; margin-top: 12px; display: block; }
+    pre { margin: 7px 0 0; padding: 12px; border-radius: 10px; background: var(--code); color: #e5f4fb; overflow: auto; direction: ltr; text-align: left; font-size: .84rem; line-height: 1.65; white-space: pre; }
+    .preview { margin-top: 9px; padding: 12px; border: 1px dashed #b8cbd7; border-radius: 10px; background: #fbfdff; overflow-wrap: anywhere; }
+    .preview h1, .preview h2, .preview h3, .preview h4 { color: inherit; margin-block: .3em; }
+    .preview p { margin-block: .4em; }
+    .preview img { max-width: 100%; }
+    .tip { background: var(--accent); border-right: 4px solid var(--brand); padding: 12px 14px; border-radius: 8px; margin-top: 16px; }
+    .empty { display: none; background: white; border: 1px solid var(--line); padding: 25px; border-radius: 12px; text-align: center; color: var(--muted); }
+    footer { color: var(--muted); border-top: 1px solid var(--line); padding: 20px 0 35px; font-size: .9rem; }
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      aside { position: static; max-height: none; }
+      .nav-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 460px) {
+      .hero { padding-top: 30px; }
+      .hero-inner, .layout, footer { width: min(100% - 22px, 1160px); }
+      .search-box { display: block; }
+      .count { display: block; margin-top: 7px; }
+      .nav-list { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">دليل المطوّر العربي</div>
+      <h1>مرجع وسوم HTML</h1>
+      <p>دليل عملي لأهم وسوم HTML: وظيفة كل وسم، ومثال بسيط، وملاحظات تساعدك تختار الوسم المناسب أثناء بناء المواقع.</p>
+      <div class="hero-stats">
+        <span>شرح باللغة العربية</span>
+        <span>أمثلة قابلة للنسخ</span>
+        <span>بحث مباشر</span>
+        <span>متوافق مع الهاتف والكمبيوتر</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside>
+      <div class="side-card">
+        <h2>التنقّل بين الأقسام</h2>
+        <nav class="nav-list" aria-label="أقسام الدليل">
+          <a href="#document">بنية الصفحة</a>
+          <a href="#text">النصوص والعناوين</a>
+          <a href="#semantic">الوسوم الدلالية</a>
+          <a href="#links-media">الروابط والصور</a>
+          <a href="#lists">القوائم</a>
+          <a href="#tables">الجداول</a>
+          <a href="#forms">النماذج</a>
+          <a href="#interactive">عناصر تفاعلية</a>
+          <a href="#other">وسوم أخرى</a>
+          <a href="#obsolete">وسوم قديمة</a>
+        </nav>
+      </div>
+    </aside>
+
+    <main>
+      <section class="intro">
+        <h2>إزاي تستخدم الدليل؟</h2>
+        <p>ابحث باسم الوسم أو وظيفته، مثل <code class="tag">article</code> أو «رابط». الأمثلة المختارة توضح الاستخدام الأساسي، وليست بديلًا عن توثيق كل الخصائص الممكنة.</p>
+        <div class="tip"><strong>معلومة مهمة:</strong> الوسوم الدلالية مثل <code class="tag">main</code> و<code class="tag">article</code> تصف معنى المحتوى. أما <code class="tag">div</code> فهو حاوية عامة، ولا يضيف معنى دلاليًا وحده.</div>
+      </section>
+
+      <div class="search-box">
+        <input id="search" type="search" placeholder="ابحث عن وسم أو وظيفته..." aria-label="البحث في وسوم HTML">
+        <span id="count" class="count" aria-live="polite">جاري التحميل</span>
+      </div>
+
+      <div id="catalog">
+        <section id="document" class="tag-section">
+          <h2 class="category">بنية الصفحة</h2>
+          <p class="category-note">العناصر الأساسية التي تساعد المتصفح على فهم مستند HTML.</p>
+          <div class="cards">
+            <article class="tag-card" data-search="doctype تعريف نوع المستند html">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;!DOCTYPE html&gt;</code></h3><span class="badge">أساسي</span></div>
+              <p>يخبر المتصفح أن المستند يستخدم معيار HTML الحديث.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;!DOCTYPE html&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="html جذر الصفحة lang">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;html&gt;</code></h3><span class="badge">أساسي</span></div>
+              <p>العنصر الجذر الذي يحتوي على بقية عناصر الصفحة. الخاصية <code>lang</code> تحدد لغة المحتوى.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;html lang="ar" dir="rtl"&gt;
+  ...
+&lt;/html&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="head بيانات وصفية عنوان روابط css">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;head&gt;</code></h3></div>
+              <p>يحتوي على معلومات الصفحة، مثل العنوان والوصف وروابط ملفات CSS؛ ولا يعرض معظم محتواه داخل الصفحة نفسها.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;head&gt;
+  &lt;title&gt;موقعي&lt;/title&gt;
+&lt;/head&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="body جسم محتوى الصفحة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;body&gt;</code></h3></div>
+              <p>يحتوي على المحتوى الذي يظهر داخل صفحة الويب، مثل النصوص والصور والأزرار.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;body&gt;
+  &lt;h1&gt;أهلًا بك&lt;/h1&gt;
+&lt;/body&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="title عنوان تبويب المتصفح">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;title&gt;</code></h3></div>
+              <p>يحدد عنوان المستند الذي يظهر عادةً في تبويب المتصفح ونتائج البحث.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;title&gt;تعلم HTML&lt;/title&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="meta ترميز وصف viewport محركات البحث">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;meta&gt;</code></h3></div>
+              <p>يقدم بيانات وصفية، مثل ترميز الأحرف ووصف الصفحة وإعداد عرض الهاتف.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport"
+ content="width=device-width, initial-scale=1"&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="link ربط css favicon">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;link&gt;</code></h3></div>
+              <p>يربط المستند بملف خارجي، مثل ملف CSS أو أيقونة الموقع.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="style css تنسيق داخلي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;style&gt;</code></h3></div>
+              <p>يحتوي على قواعد CSS داخل صفحة HTML نفسها.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;style&gt;
+  p { color: teal; }
+&lt;/style&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="script javascript جافاسكريبت">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;script&gt;</code></h3></div>
+              <p>يضمّن JavaScript داخل الصفحة أو يربط ملفًا خارجيًا لتنفيذ وظائف تفاعلية.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;script src="app.js" defer&gt;&lt;/script&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="noscript تعطيل جافاسكريبت">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;noscript&gt;</code></h3></div>
+              <p>يعرض محتوى بديلًا عندما تكون JavaScript معطلة أو غير مدعومة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;noscript&gt;فعّل JavaScript لاستخدام كل الميزات.&lt;/noscript&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="text" class="tag-section">
+          <h2 class="category">النصوص والعناوين</h2>
+          <p class="category-note">لعرض العناوين والفقرات والتأكيد والاقتباسات والمحتوى النصي.</p>
+          <div class="cards">
+            <article class="tag-card" data-search="h1 h2 h3 h4 h5 h6 عناوين">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;h1&gt; ... &lt;h6&gt;</code></h3></div>
+              <p>عناوين بمستويات هرمية من الأعلى أهمية إلى الأقل. اختر المستوى حسب بنية المحتوى، وليس حجم الخط فقط.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;h1&gt;عنوان الصفحة&lt;/h1&gt;
+&lt;h2&gt;قسم رئيسي&lt;/h2&gt;
+&lt;h3&gt;عنوان فرعي&lt;/h3&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="p فقرة نص">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;p&gt;</code></h3></div>
+              <p>ينشئ فقرة نصية.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;p&gt;هذه فقرة في الصفحة.&lt;/p&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="br كسر سطر انتقال سطر">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;br&gt;</code></h3></div>
+              <p>ينشئ انتقالًا إلى سطر جديد داخل النص، مثل عنوان أو عنوان بريدي. لا تستخدمه لصنع مسافات كبيرة بين العناصر.</p>
+              <span class="example-label">مثال</span><pre><code>السطر الأول&lt;br&gt;
+السطر الثاني</code></pre>
+            </article>
+            <article class="tag-card" data-search="hr فاصل موضوعي خط">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;hr&gt;</code></h3></div>
+              <p>يمثل فاصلًا موضوعيًا بين أجزاء المحتوى، ويمكن تغيير مظهره باستخدام CSS.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;p&gt;الموضوع الأول&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;الموضوع الثاني&lt;/p&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="strong أهمية نص مهم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;strong&gt;</code></h3></div>
+              <p>يشير إلى أهمية قوية للنص، وغالبًا يظهر بخط عريض.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;strong&gt;تحذير مهم!&lt;/strong&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="em emphasis تأكيد نص مائل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;em&gt;</code></h3></div>
+              <p>يضيف تأكيدًا دلاليًا إلى النص، وغالبًا يظهر مائلًا.</p>
+              <span class="example-label">مثال</span><pre><code>هذا أمر &lt;em&gt;مهم جدًا&lt;/em&gt;.</code></pre>
+            </article>
+            <article class="tag-card" data-search="b bold عريض مظهر">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;b&gt;</code></h3></div>
+              <p>يلفت الانتباه إلى النص من دون أن يضيف معنى الأهمية مثل <code>strong</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;b&gt;مصطلح مهم&lt;/b&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="i italic مائل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;i&gt;</code></h3></div>
+              <p>يميز نصًا بصوت أو اصطلاح مختلف، وغالبًا يظهر مائلًا.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;i&gt;Homo sapiens&lt;/i&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="u underline تسطير">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;u&gt;</code></h3></div>
+              <p>يعرض نصًا عليه علامة أو خط أسفل النص؛ لا تستخدمه بدلًا من تنسيق الروابط.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;u&gt;كلمة عليها علامة&lt;/u&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="mark تمييز تظليل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;mark&gt;</code></h3></div>
+              <p>يميز جزءًا من النص لأنه ذو صلة بالسياق، وغالبًا يظهر بخلفية ملونة.</p>
+              <span class="example-label">مثال</span><pre><code>ابحث عن &lt;mark&gt;الكلمة المهمة&lt;/mark&gt;.</code></pre>
+            </article>
+            <article class="tag-card" data-search="small ملاحظات نص صغير">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;small&gt;</code></h3></div>
+              <p>للملاحظات الجانبية أو الطباعة الصغيرة، مثل معلومات الحقوق.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;small&gt;جميع الحقوق محفوظة.&lt;/small&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="del حذف نص مشطوب">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;del&gt;</code></h3></div>
+              <p>يمثل نصًا حُذف من المستند، وغالبًا يظهر مشطوبًا.</p>
+              <span class="example-label">مثال</span><pre><code>السعر: &lt;del&gt;200 جنيهًا&lt;/del&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="ins إضافة نص مضاف">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;ins&gt;</code></h3></div>
+              <p>يمثل نصًا أُضيف إلى المستند، وغالبًا يظهر تحته خط.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;ins&gt;السعر الجديد 150 جنيهًا&lt;/ins&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="sub منخفض أسفل معادلة كيمياء">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;sub&gt;</code></h3></div>
+              <p>يعرض نصًا منخفضًا قليلًا، مثل الأرقام في الصيغ الكيميائية.</p>
+              <span class="example-label">مثال</span><pre><code>H&lt;sub&gt;2&lt;/sub&gt;O</code></pre>
+              <div class="preview">H<sub>2</sub>O</div>
+            </article>
+            <article class="tag-card" data-search="sup مرتفع أس أعلى أس رياضيات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;sup&gt;</code></h3></div>
+              <p>يعرض نصًا مرتفعًا قليلًا، مثل الأسس الرياضية.</p>
+              <span class="example-label">مثال</span><pre><code>x&lt;sup&gt;2&lt;/sup&gt;</code></pre>
+              <div class="preview">x<sup>2</sup></div>
+            </article>
+            <article class="tag-card" data-search="abbr اختصار معنى title">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;abbr&gt;</code></h3></div>
+              <p>يمثل اختصارًا. يمكن استخدام <code>title</code> لكتابة المعنى الكامل الذي قد يظهر كتلميح عند تمرير المؤشر.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;abbr title="HyperText Markup Language"&gt;
+  HTML
+&lt;/abbr&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="blockquote اقتباس طويل مصدر">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;blockquote&gt;</code></h3></div>
+              <p>يمثل اقتباسًا طويلًا من مصدر آخر. يمكن إضافة رابط المصدر في الخاصية <code>cite</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;blockquote cite="https://example.org"&gt;
+  المعرفة قوة.
+&lt;/blockquote&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="q اقتباس قصير">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;q&gt;</code></h3></div>
+              <p>يمثل اقتباسًا قصيرًا داخل السطر، وقد يضيف المتصفح علامات اقتباس تلقائيًا.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;p&gt;قال: &lt;q&gt;أهلًا بك&lt;/q&gt;.&lt;/p&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="code كود برمجي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;code&gt;</code></h3></div>
+              <p>يمثل مقطعًا من الكود البرمجي داخل النص.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;code&gt;console.log("Hello")&lt;/code&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="pre نص منسق مسافات أسطر">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;pre&gt;</code></h3></div>
+              <p>يعرض نصًا يحافظ على المسافات والأسطر المكتوبة، ويُستخدم كثيرًا مع أمثلة الكود.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;pre&gt;
+السطر الأول
+    السطر الثاني
+&lt;/pre&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="kbd لوحة مفاتيح اختصار">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;kbd&gt;</code></h3></div>
+              <p>يمثل إدخالًا من لوحة المفاتيح.</p>
+              <span class="example-label">مثال</span><pre><code>اضغط &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;S&lt;/kbd&gt; للحفظ.</code></pre>
+            </article>
+            <article class="tag-card" data-search="samp ناتج برنامج">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;samp&gt;</code></h3></div>
+              <p>يمثل عينة من ناتج برنامج أو نظام.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;samp&gt;تم الحفظ بنجاح&lt;/samp&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="var متغير برمجي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;var&gt;</code></h3></div>
+              <p>يمثل متغيرًا في معادلة أو برنامج.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;var&gt;x&lt;/var&gt; = 10</code></pre>
+            </article>
+            <article class="tag-card" data-search="span حاوية داخل السطر css">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;span&gt;</code></h3></div>
+              <p>حاوية عامة داخل السطر، مفيدة لتنسيق جزء من النص باستخدام CSS أو استهدافه برمجيًا.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;p&gt;لون هذه &lt;span class="accent"&gt;الكلمة&lt;/span&gt;.&lt;/p&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="semantic" class="tag-section">
+          <h2 class="category">الوسوم الدلالية وتنظيم الصفحة</h2>
+          <p class="category-note">تصف وظيفة أجزاء الصفحة وتجعل بنيتها أوضح للمطورين وأدوات الوصول.</p>
+          <div class="cards">
+            <article class="tag-card" data-search="header رأس الصفحة مقدمة قسم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;header&gt;</code></h3></div>
+              <p>يمثل مقدمة صفحة أو قسم، وقد يحتوي على عنوان أو شعار أو أدوات تنقل.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;header&gt;
+  &lt;h1&gt;موقعي&lt;/h1&gt;
+&lt;/header&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="nav روابط التنقل قائمة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;nav&gt;</code></h3></div>
+              <p>يحتوي على مجموعة روابط التنقل الرئيسية أو المهمة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;nav aria-label="القائمة الرئيسية"&gt;
+  &lt;a href="index.html"&gt;الرئيسية&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="main المحتوى الرئيسي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;main&gt;</code></h3></div>
+              <p>يحتوي على المحتوى الرئيسي والفريد للصفحة. عادةً يوجد عنصر <code>main</code> واحد ظاهر في الصفحة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;main&gt;
+  &lt;h1&gt;محتوى الصفحة&lt;/h1&gt;
+&lt;/main&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="section قسم موضوعي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;section&gt;</code></h3></div>
+              <p>يجمع محتوى مرتبطًا بموضوع واحد، وغالبًا يكون له عنوان.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;section&gt;
+  &lt;h2&gt;مميزات الموقع&lt;/h2&gt;
+  &lt;p&gt;شرح المميزات هنا.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="article مقال منشور تدوينة منشور اجتماعي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;article&gt;</code></h3></div>
+              <p>يمثل محتوى مستقلًا نسبيًا، مثل مقالة أو تدوينة أو منشور في موقع تواصل اجتماعي.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;article&gt;
+  &lt;h2&gt;عنوان المنشور&lt;/h2&gt;
+  &lt;p&gt;محتوى المنشور...&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="aside محتوى جانبي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;aside&gt;</code></h3></div>
+              <p>يحتوي على محتوى جانبي مرتبط بالمحتوى الأساسي، مثل صندوق معلومات أو روابط ذات صلة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;aside&gt;
+  &lt;h2&gt;مقالات ذات صلة&lt;/h2&gt;
+&lt;/aside&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="footer تذييل حقوق تواصل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;footer&gt;</code></h3></div>
+              <p>يمثل تذييل الصفحة أو القسم، وقد يحتوي على حقوق النشر وروابط التواصل.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;footer&gt;
+  &lt;small&gt;© 2026 حقوق النشر&lt;/small&gt;
+&lt;/footer&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="address عنوان معلومات تواصل بريد">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;address&gt;</code></h3></div>
+              <p>يمثل معلومات التواصل المتعلقة بالمؤلف أو الجهة المسؤولة عن أقرب محتوى أو الصفحة، وليس أي عنوان عشوائي بالضرورة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;address&gt;
+  البريد:
+  &lt;a href="mailto:dev@example.com"&gt;راسلنا&lt;/a&gt;
+&lt;/address&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="div حاوية عامة تقسيم css">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;div&gt;</code></h3></div>
+              <p>حاوية عامة لتجميع العناصر وتنسيقها، عندما لا يكون هناك وسم دلالي أنسب.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;div class="card"&gt;
+  محتوى البطاقة
+&lt;/div&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="figure صورة رسم توضيحي مستقل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;figure&gt;</code></h3></div>
+              <p>يجمع محتوى مستقلًا مثل صورة أو رسم أو مخطط أو مثال كود.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;figure&gt;
+  &lt;img src="photo.jpg" alt="منظر طبيعي"&gt;
+  &lt;figcaption&gt;منظر طبيعي&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="figcaption شرح صورة عنوان شكل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;figcaption&gt;</code></h3></div>
+              <p>يضيف شرحًا أو عنوانًا لمحتوى داخل <code>figure</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;figcaption&gt;صورة توضيحية للدرس&lt;/figcaption&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="links-media" class="tag-section">
+          <h2 class="category">الروابط والصور والوسائط</h2>
+          <div class="cards">
+            <article class="tag-card" data-search="a anchor رابط href">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;a&gt;</code></h3></div>
+              <p>ينشئ رابطًا إلى صفحة أو ملف أو جزء داخل الصفحة أو عنوان بريد إلكتروني.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;a href="about.html"&gt;عن الموقع&lt;/a&gt;
+&lt;a href="mailto:dev@example.com"&gt;راسلنا&lt;/a&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="img صورة alt src">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;img&gt;</code></h3></div>
+              <p>يعرض صورة. استخدم <code>src</code> للمصدر و<code>alt</code> لوصف الصورة عند الحاجة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;img src="logo.png" alt="شعار الموقع"&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="map area خريطة صورة مناطق قابلة للنقر">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;map&gt;</code></h3></div>
+              <p>يربط صورة بمجموعة مناطق قابلة للنقر باستخدام <code>area</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;img src="map.jpg" usemap="#my-map" alt="خريطة"&gt;
+&lt;map name="my-map"&gt;
+  &lt;area shape="rect" coords="0,0,100,100"
+        href="place.html" alt="مكان"&gt;
+&lt;/map&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="area منطقة صورة رابط rect circle poly">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;area&gt;</code></h3></div>
+              <p>يحدد منطقة قابلة للنقر داخل صورة مرتبطة بعنصر <code>map</code>. من أشكاله <code>rect</code> و<code>circle</code> و<code>poly</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;area shape="circle" coords="80,80,30"
+      href="details.html" alt="تفاصيل المنطقة"&gt;</code></pre>
+              <p class="meta">الإحداثيات تُقاس داخل الصورة، ويجب أن تتطابق مع أبعادها.</p>
+            </article>
+            <article class="tag-card" data-search="audio صوت مشغل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;audio&gt;</code></h3></div>
+              <p>يضمّن ملفًا صوتيًا مع إمكانية إظهار أدوات التشغيل.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+  متصفحك لا يدعم الصوت.
+&lt;/audio&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="video فيديو مشغل controls">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;video&gt;</code></h3></div>
+              <p>يعرض فيديو داخل الصفحة. أضف <code>controls</code> لإظهار أدوات التشغيل.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;video controls width="400"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  متصفحك لا يدعم الفيديو.
+&lt;/video&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="source مصدر صوت فيديو صور">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;source&gt;</code></h3></div>
+              <p>يحدد ملفًا بديلًا أو مصدرًا لوسائط مثل الصوت والفيديو أو الصور المتجاوبة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;source src="video.mp4" type="video/mp4"&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="track ترجمة subtitles captions فيديو">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;track&gt;</code></h3></div>
+              <p>يضيف مسارات نصية، مثل الترجمة أو التعليقات التوضيحية للفيديو والصوت.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;track src="captions-ar.vtt" kind="subtitles"
+       srclang="ar" label="العربية"&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="iframe صفحة داخلية تضمين">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;iframe&gt;</code></h3></div>
+              <p>يعرض صفحة ويب أخرى داخل إطار في الصفحة الحالية. استخدمه فقط مع مصادر موثوقة واضبط الأمان عند الحاجة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;iframe src="https://example.org"
+        title="صفحة توضيحية"&gt;&lt;/iframe&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="svg رسومات متجهة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;svg&gt;</code></h3></div>
+              <p>يُستخدم لإنشاء رسومات متجهة قابلة للتكبير دون فقدان الوضوح.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;svg viewBox="0 0 100 100" role="img"
+     aria-label="دائرة"&gt;
+  &lt;circle cx="50" cy="50" r="40" fill="teal"&gt;&lt;/circle&gt;
+&lt;/svg&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="canvas رسم برمجي جافاسكريبت">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;canvas&gt;</code></h3></div>
+              <p>يوفر مساحة للرسم بواسطة JavaScript، مثل الرسومات والألعاب ثنائية الأبعاد.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;canvas id="board" width="300" height="150"&gt;
+  مساحة رسم
+&lt;/canvas&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="lists" class="tag-section">
+          <h2 class="category">القوائم</h2>
+          <div class="cards">
+            <article class="tag-card" data-search="ul قائمة غير مرتبة نقطية">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;ul&gt;</code></h3></div>
+              <p>ينشئ قائمة غير مرتبة، وتظهر عناصرها عادةً بعلامات نقطية.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="ol قائمة مرتبة مرقمة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;ol&gt;</code></h3></div>
+              <p>ينشئ قائمة مرتبة بالأرقام أو ترتيب آخر.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;ol&gt;
+  &lt;li&gt;تعلم HTML&lt;/li&gt;
+  &lt;li&gt;تعلم CSS&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="li عنصر قائمة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;li&gt;</code></h3></div>
+              <p>يمثل عنصرًا داخل قائمة <code>ul</code> أو <code>ol</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;li&gt;JavaScript&lt;/li&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="dl قائمة وصف مصطلحات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;dl&gt;</code></h3></div>
+              <p>ينشئ قائمة وصفية تربط المصطلحات بتعريفاتها أو أوصافها.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;لغة وصف بنية الويب.&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="dt مصطلح قائمة وصفية">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;dt&gt;</code></h3></div>
+              <p>يمثل المصطلح أو الاسم داخل قائمة وصفية <code>dl</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;dt&gt;CSS&lt;/dt&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="dd تعريف وصف مصطلح">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;dd&gt;</code></h3></div>
+              <p>يمثل وصف المصطلح أو تفاصيله داخل قائمة وصفية.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;dd&gt;لغة تنسيق صفحات الويب.&lt;/dd&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="tables" class="tag-section">
+          <h2 class="category">الجداول</h2>
+          <div class="cards">
+            <article class="tag-card" data-search="table جدول بيانات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;table&gt;</code></h3></div>
+              <p>ينشئ جدولًا للبيانات المنظمة، وليس لتخطيط الصفحة بالكامل.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;الاسم&lt;/th&gt;&lt;th&gt;الدرجة&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;علي&lt;/td&gt;&lt;td&gt;95&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="caption عنوان جدول">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;caption&gt;</code></h3></div>
+              <p>يضيف عنوانًا للجدول.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;caption&gt;درجات الطلاب&lt;/caption&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="thead رأس الجدول">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;thead&gt;</code></h3></div>
+              <p>يجمع صفوف رأس الجدول.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;thead&gt;
+  &lt;tr&gt;&lt;th&gt;الاسم&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="tbody جسم الجدول">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;tbody&gt;</code></h3></div>
+              <p>يجمع الصفوف الأساسية التي تحتوي على بيانات الجدول.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;tbody&gt;
+  &lt;tr&gt;&lt;td&gt;علي&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="tfoot تذييل الجدول مجموع">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;tfoot&gt;</code></h3></div>
+              <p>يجمع صفوف ملخص أو تذييل الجدول، مثل الإجمالي.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;tfoot&gt;
+  &lt;tr&gt;&lt;td&gt;الإجمالي&lt;/td&gt;&lt;/tr&gt;
+&lt;/tfoot&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="tr صف جدول">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;tr&gt;</code></h3></div>
+              <p>ينشئ صفًا داخل الجدول.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;tr&gt;...&lt;/tr&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="th خلية رأس عنوان عمود">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;th&gt;</code></h3></div>
+              <p>ينشئ خلية عنوان لصف أو عمود. يمكن تحديد نطاق العنوان باستخدام <code>scope</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;th scope="col"&gt;الاسم&lt;/th&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="td خلية بيانات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;td&gt;</code></h3></div>
+              <p>ينشئ خلية بيانات عادية داخل صف الجدول.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;td&gt;خالد&lt;/td&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="forms" class="tag-section">
+          <h2 class="category">النماذج وإدخال البيانات</h2>
+          <p class="category-note">تُستخدم لإنشاء تسجيل الدخول والبحث والتواصل وغيرها. المثال هنا توضيحي ولا يرسل بيانات إلى خادم.</p>
+          <div class="cards">
+            <article class="tag-card" data-search="form نموذج إرسال بيانات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;form&gt;</code></h3></div>
+              <p>يجمع عناصر إدخال البيانات، ويمكن تحديد طريقة الإرسال والوجهة باستخدام خصائص مثل <code>method</code> و<code>action</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;form action="/signup" method="post"&gt;
+  ...
+&lt;/form&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="label تسمية حقل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;label&gt;</code></h3></div>
+              <p>يضيف تسمية واضحة لحقل الإدخال، ويمكن ربطه بمعرّف الحقل باستخدام <code>for</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;label for="email"&gt;البريد الإلكتروني&lt;/label&gt;
+&lt;input id="email" type="email"&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="input إدخال نص بريد كلمة مرور checkbox">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;input&gt;</code></h3></div>
+              <p>ينشئ حقل إدخال. تتغير وظيفته حسب <code>type</code> مثل <code>text</code> و<code>email</code> و<code>password</code> و<code>checkbox</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;input type="email" id="email"
+       name="email" required&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="textarea نص طويل رسالة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;textarea&gt;</code></h3></div>
+              <p>ينشئ حقلًا لكتابة نص متعدد الأسطر، مثل رسالة التواصل.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="button زر ضغط">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;button&gt;</code></h3></div>
+              <p>ينشئ زرًا يمكن الضغط عليه. داخل نموذج، حدد <code>type</code> بوضوح مثل <code>button</code> أو <code>submit</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;button type="button"&gt;اضغط هنا&lt;/button&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="select قائمة منسدلة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;select&gt;</code></h3></div>
+              <p>ينشئ قائمة خيارات منسدلة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;select name="level"&gt;
+  &lt;option value="beginner"&gt;مبتدئ&lt;/option&gt;
+  &lt;option value="advanced"&gt;متقدم&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="option خيار قائمة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;option&gt;</code></h3></div>
+              <p>يمثل خيارًا داخل <code>select</code> أو بعض عناصر الاختيار الأخرى.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;option value="html"&gt;HTML&lt;/option&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="optgroup تجميع الخيارات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;optgroup&gt;</code></h3></div>
+              <p>يجمع الخيارات المتشابهة داخل قائمة الاختيار.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;optgroup label="لغات الويب"&gt;
+  &lt;option&gt;HTML&lt;/option&gt;
+  &lt;option&gt;CSS&lt;/option&gt;
+&lt;/optgroup&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="fieldset مجموعة حقول">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;fieldset&gt;</code></h3></div>
+              <p>يجمع عناصر نموذج مترابطة في مجموعة واحدة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;بيانات الحساب&lt;/legend&gt;
+  ...
+&lt;/fieldset&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="legend عنوان مجموعة الحقول">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;legend&gt;</code></h3></div>
+              <p>يحدد عنوانًا لمجموعة <code>fieldset</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;legend&gt;بيانات الحساب&lt;/legend&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="datalist اقتراحات إدخال">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;datalist&gt;</code></h3></div>
+              <p>يوفر قائمة اقتراحات لحقل إدخال مرتبط عبر الخاصية <code>list</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;input list="languages" name="language"&gt;
+&lt;datalist id="languages"&gt;
+  &lt;option value="HTML"&gt;
+  &lt;option value="JavaScript"&gt;
+&lt;/datalist&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="output نتيجة حساب">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;output&gt;</code></h3></div>
+              <p>يمثل نتيجة حساب أو إجراء داخل نموذج.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;output name="result"&gt;10&lt;/output&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="progress شريط تقدم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;progress&gt;</code></h3></div>
+              <p>يعرض تقدم مهمة، مثل تحميل ملف.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="meter مقياس قيمة ضمن نطاق">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;meter&gt;</code></h3></div>
+              <p>يعرض قيمة ضمن نطاق معروف، مثل نتيجة أو مستوى مساحة القرص؛ ليس بديلًا لشريط تقدم مهمة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;meter min="0" max="100" value="80"&gt;80%&lt;/meter&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="interactive" class="tag-section">
+          <h2 class="category">العناصر التفاعلية</h2>
+          <div class="cards">
+            <article class="tag-card" data-search="details محتوى قابل للفتح والإغلاق">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;details&gt;</code></h3></div>
+              <p>ينشئ عنصرًا يمكن فتحه وإغلاقه لإظهار تفاصيل إضافية دون الحاجة إلى JavaScript في الاستخدام الأساسي.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;details&gt;
+  &lt;summary&gt;ما هي HTML؟&lt;/summary&gt;
+  لغة لوصف بنية صفحات الويب.
+&lt;/details&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="summary عنوان تفاصيل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;summary&gt;</code></h3></div>
+              <p>يمثل العنوان القابل للنقر داخل <code>details</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;summary&gt;عرض الإجابة&lt;/summary&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="dialog مربع حوار نافذة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;dialog&gt;</code></h3></div>
+              <p>يمثل مربع حوار أو نافذة حوارية. يمكن فتحه وإغلاقه بوسائل HTML وJavaScript.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;dialog open&gt;
+  &lt;p&gt;مرحبًا بك&lt;/p&gt;
+&lt;/dialog&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="time تاريخ وقت datetime">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;time&gt;</code></h3></div>
+              <p>يمثل تاريخًا أو وقتًا بصيغة يمكن للبرامج فهمها باستخدام <code>datetime</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;time datetime="2026-10-10"&gt;
+  10 أكتوبر 2026
+&lt;/time&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="template قالب محتوى لا يظهر">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;template&gt;</code></h3></div>
+              <p>يحتوي على HTML لا يُعرض مباشرة عند تحميل الصفحة، ويمكن نسخه وإدراجه باستخدام JavaScript.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;template id="card-template"&gt;
+  &lt;article&gt;بطاقة جديدة&lt;/article&gt;
+&lt;/template&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="other" class="tag-section">
+          <h2 class="category">وسوم أخرى مفيدة</h2>
+          <div class="cards">
+            <article class="tag-card" data-search="wbr كسر سطر اختياري">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;wbr&gt;</code></h3></div>
+              <p>يحدد موضعًا يمكن للمتصفح كسر الكلمة أو السطر عنده إذا احتاج إلى ذلك.</p>
+              <span class="example-label">مثال</span><pre><code>verylongword&lt;wbr&gt;thatcanbreak</code></pre>
+            </article>
+            <article class="tag-card" data-search="bdi عزل اتجاه النص">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;bdi&gt;</code></h3></div>
+              <p>يعزل اتجاه النص عن اتجاه النص المحيط، وهو مفيد عند عرض أسماء أو نصوص مجهولة الاتجاه في صفحة عربية.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;p&gt;اسم المستخدم: &lt;bdi&gt;Alex_123&lt;/bdi&gt;&lt;/p&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="bdo تغيير اتجاه النص rtl ltr">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;bdo&gt;</code></h3></div>
+              <p>يفرض اتجاه عرض النص عبر الخاصية <code>dir</code>، مثل <code>ltr</code> أو <code>rtl</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;bdo dir="ltr"&gt;Hello 123&lt;/bdo&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="data قيمة مخصصة بيانات">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;data&gt;</code></h3></div>
+              <p>يربط نصًا ظاهرًا بقيمة آلية عبر الخاصية <code>value</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;data value="SKU-204"&gt;القميص الأزرق&lt;/data&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="ruby rt rp نطق شرح شرق آسيوي">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;ruby&gt;</code></h3><span class="badge">متخصص</span></div>
+              <p>يستخدم لعرض تعليقات أو إرشادات نطق صغيرة بجانب النص، خصوصًا في الكتابات شرق الآسيوية.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;ruby&gt;漢 &lt;rt&gt;kan&lt;/rt&gt;&lt;/ruby&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="rt شرح نطق ruby">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;rt&gt;</code></h3><span class="badge">متخصص</span></div>
+              <p>يحدد نص التعليق أو النطق داخل <code>ruby</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;rt&gt;kan&lt;/rt&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="rp بديل أقواس ruby">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;rp&gt;</code></h3><span class="badge">متخصص</span></div>
+              <p>يوفر علامات احتياطية للمتصفحات التي لا تدعم تعليقات <code>ruby</code>.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;ruby&gt;漢&lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;kan&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;&lt;/ruby&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="noscript javascript بديل">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;noscript&gt;</code></h3></div>
+              <p>يعرض رسالة أو محتوى بديلًا إذا لم تتوفر JavaScript. يمكن استخدامه أيضًا داخل <code>head</code> في حالات محددة.</p>
+              <span class="example-label">مثال</span><pre><code>&lt;noscript&gt;بعض وظائف الموقع تحتاج JavaScript.&lt;/noscript&gt;</code></pre>
+            </article>
+          </div>
+        </section>
+
+        <section id="obsolete" class="tag-section">
+          <h2 class="category">وسوم قديمة لا تستخدمها في المشاريع الجديدة</h2>
+          <p class="category-note">تظهر هنا للتعرّف عليها عند قراءة أكواد قديمة. استخدم البدائل الحديثة المناسبة.</p>
+          <div class="cards">
+            <article class="tag-card" data-search="applet برنامج java قديم مهجور">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;applet&gt;</code></h3><span class="badge old">مهجور</span></div>
+              <p>كان يستخدم لتضمين برامج Java صغيرة داخل صفحة الويب. أصبح قديمًا وغير مدعوم في HTML الحديثة.</p>
+              <span class="example-label">بديل مناسب</span><pre><code>&lt;!-- استخدم HTML وJavaScript أو تقنيات الويب الحديثة --&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="font لون حجم خط قديم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;font&gt;</code></h3><span class="badge old">مهجور</span></div>
+              <p>كان يتحكم في لون الخط وحجمه ونوعه داخل HTML. استبدله بقواعد CSS.</p>
+              <span class="example-label">بديل</span><pre><code>&lt;span class="highlight"&gt;نص&lt;/span&gt;
+
+/* في CSS */
+.highlight { color: teal; }</code></pre>
+            </article>
+            <article class="tag-card" data-search="center توسيط قديم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;center&gt;</code></h3><span class="badge old">مهجور</span></div>
+              <p>كان يوسّط المحتوى. استخدم CSS بدلًا منه.</p>
+              <span class="example-label">بديل</span><pre><code>.centered { text-align: center; }</code></pre>
+            </article>
+            <article class="tag-card" data-search="big نص كبير قديم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;big&gt;</code></h3><span class="badge old">مهجور</span></div>
+              <p>كان يعرض النص بحجم أكبر. استخدم CSS لتحديد حجم الخط.</p>
+              <span class="example-label">بديل</span><pre><code>.large-text { font-size: 1.25rem; }</code></pre>
+            </article>
+            <article class="tag-card" data-search="strike نص مشطوب قديم">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;strike&gt;</code></h3><span class="badge old">مهجور</span></div>
+              <p>كان يعرض نصًا مشطوبًا. استخدم <code>del</code> إذا كان النص محذوفًا دلاليًا، أو CSS للمظهر فقط.</p>
+              <span class="example-label">بديل</span><pre><code>&lt;del&gt;سعر قديم&lt;/del&gt;</code></pre>
+            </article>
+            <article class="tag-card" data-search="frameset frame noframes إطارات قديمة">
+              <div class="tag-head"><h3 class="tag-name"><code class="tag">&lt;frameset&gt;</code> و<code class="tag">&lt;frame&gt;</code></h3><span class="badge old">مهجوران</span></div>
+              <p>كانا يستخدمان لتقسيم نافذة المتصفح إلى إطارات. لم يعودا جزءًا من HTML الحديثة؛ استخدم تخطيط CSS أو <code>iframe</code> عند الحاجة المناسبة.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+      <div id="empty" class="empty">لم نعثر على وسوم مطابقة. جرّب كلمة أخرى.</div>
+    </main>
+  </div>
+
+  <footer>
+    <p><strong>نصيحة:</strong> ليس مطلوبًا حفظ كل الوسوم. تعلّم الوسوم الأساسية أولًا، ثم ارجع إلى هذا المرجع عندما تحتاج وظيفة محددة.</p>
+    <p>هذا الملف مرجع تعليمي مختصر، وليس قائمة كاملة بكل عناصر HTML وخصائصها. للحصول على التفاصيل الدقيقة، راجع توثيق MDN أو معيار HTML.</p>
+  </footer>
+
+  <script>
+    const search = document.getElementById('search');
+    const cards = [...document.querySelectorAll('.tag-card')];
+    const sections = [...document.querySelectorAll('.tag-section')];
+    const count = document.getElementById('count');
+    const empty = document.getElementById('empty');
+
+    function filterTags() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const haystack = (card.innerText + ' ' + (card.dataset.search || '')).toLowerCase();
+        const match = haystack.includes(query);
+        card.hidden = !match;
+        if (match) visible++;
+      });
+
+      sections.forEach(section => {
+        const hasVisible = [...section.querySelectorAll('.tag-card')].some(card => !card.hidden);
+        section.hidden = !hasVisible;
+      });
+
+      count.textContent = `${visible} وسم`;
+      empty.style.display = visible ? 'none' : 'block';
+    }
+
+    search.addEventListener('input', filterTags);
+    filterTags();
+  </script>
+</body>
+              </html>

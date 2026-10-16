@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="/manifest.json">
+
+    <title>تعلم البرمجة من الصفر | HTML وCSS وJavaScript</title>
+
+    <meta name="description" content="منصة تعليمية لتعلم البرمجة وتطوير مواقع الويب من الصفر، مع دروس HTML وCSS وJavaScript وشرح مبسط وأمثلة تطبيقية ومشروعات عملية.">
+    <meta name="keywords" content="تعلم البرمجة, HTML, CSS, JavaScript, تطوير الويب, تصميم المواقع, دروس البرمجة, خالد سامح">
+    <meta name="author" content="خالد سامح">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="تعلم البرمجة من الصفر">
+    <meta property="og:description" content="ابدأ رحلتك في عالم البرمجة وتعلم HTML وCSS وJavaScript خطوة بخطوة.">
+    <meta property="og:image" content="https://i.postimg.cc/TwZmZCch/Screenshot-20260824-003511-Whats-App-Business.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تعلم البرمجة من الصفر">
+    <meta name="twitter:description" content="تعلم تطوير مواقع الويب من الصفر مع دروس مبسطة وتطبيقات عملية.">
+    <meta name="twitter:image" content="https://i.postimg.cc/TwZmZCch/Screenshot-20260824-003511-Whats-App-Business.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "تعلم البرمجة من الصفر",
+        "description": "منصة تعليمية لتعلم تطوير مواقع الويب باستخدام HTML وCSS وJavaScript.",
+        "author": {
+            "@type": "Person",
+            "name": "خالد سامح"
+        },
+        "inLanguage": "ar"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-light: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #0d9488;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                         0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 25px -5px rgba(37, 99, 235, 0.08),
+                         0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow-lg: 0 20px 30px -10px rgba(37, 99, 235, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-light);
+            background-image: radial-gradient(#cbd5e1 0.7px, transparent 0.7px);
+            background-size: 24px 24px;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* الشريط العلوي */
+
+        .topbar {
+            width: 100%;
+            max-width: 1200px;
+            height: 90px;
+            margin: auto;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-img {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s ease;
+        }
+
+        .logo-img:hover {
+            transform: rotate(360deg);
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .about-button {
+            color: var(--text-main);
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .developer-button {
+            color: #ffffff;
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+        }
+
+        .top-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .about-button:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .developer-button:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        /* الواجهة الرئيسية */
+
+        .hero {
+            width: 100%;
+            max-width: 1200px;
+            min-height: calc(100vh - 90px);
+            margin: auto;
+            padding: 40px 25px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .image-frame {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 28px;
+            padding: 5px;
+            background: #ffffff;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            box-shadow: var(--shadow-md);
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+
+        .header-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #eff6ff;
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 50px;
+            line-height: 1.25;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            margin: 18px auto 0;
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        .line {
+            width: 60px;
+            height: 4px;
+            margin: 28px auto;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+        }
+
+        .enter-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 185px;
+            height: 54px;
+            padding: 0 36px;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 800;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .enter-button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .enter-button:focus-visible,
+        .top-button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* المميزات */
+
+        .features {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 0 80px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature {
+            padding: 32px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature:hover {
+            transform: translateY(-6px);
+            border-color: #bfdbfe;
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            background: #eff6ff;
+            color: var(--primary);
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .feature h2 {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .feature p {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        /* قسم بدء التعلم */
+
+        .info {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto 90px;
+            padding: 35px 40px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-text h2 {
+            margin: 0 0 6px;
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .info-text p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.8;
+        }
+
+        .info-label {
+            flex-shrink: 0;
+            padding: 10px 22px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 30px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* التذييل */
+
+        footer {
+            border-top: 1px solid var(--card-border);
+            background: #ffffff;
+            color: var(--text-main);
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .footer-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* الحركات */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: var(--shadow-md);
+            }
+
+            50% {
+                box-shadow: 0 15px 35px rgba(37, 99, 235, 0.2);
+            }
+        }
+
+        /* الشاشات الصغيرة */
+
+        @media (max-width: 768px) {
+            .topbar {
+                height: 75px;
+                padding: 0 18px;
+            }
+
+            .logo-img {
+                width: 44px;
+                height: 44px;
+            }
+
+            .top-actions {
+                gap: 7px;
+            }
+
+            .top-button {
+                height: 40px;
+                padding: 0 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                min-height: calc(100vh - 75px);
+                padding: 30px 18px 60px;
+            }
+
+            .image-frame {
+                width: 130px;
+                height: 130px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .hero-text {
+                font-size: 15px;
+            }
+
+            .enter-button {
+                height: 50px;
+                min-width: 165px;
+                font-size: 16px;
+            }
+
+            .features {
+                width: 92%;
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .info {
+                width: 92%;
+                padding: 25px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .topbar {
+                padding: 0 10px;
+            }
+
+            .top-button {
+                padding: 0 9px;
+                font-size: 11px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <img
+            src="https://files.catbox.moe/ut4y5k.png"
+            alt="شعار منصة تعلم البرمجة"
+            class="logo-img"
+            width="52"
+            height="52"
+        >
+
+        <nav class="top-actions" aria-label="القائمة الرئيسية">
+
+            <a
+                href="about.html"
+                class="top-button about-button"
+                title="معلومات عن المنصة"
+            >
+                عن الموقع
+            </a>
+
+            <a
+                href="https://wa.me/201123898466?text=السلام%20عليكم%20يا%20خالد،%20شفت%20موقع%20تعلم%20البرمجة%20وعايز%20استفسر"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="top-button developer-button"
+                title="التواصل مع مطور الموقع عبر واتساب"
+            >
+                تواصل مع المطور
+            </a>
+
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="image-frame">
+
+                    <img
+                        src="https://i.postimg.cc/TwZmZCch/Screenshot-20260824-003511-Whats-App-Business.png"
+                        alt="تعلم البرمجة وتطوير مواقع الويب"
+                        class="header-img"
+                        width="160"
+                        height="160"
+                        fetchpriority="high"
+                    >
+
+                </div>
+
+                <div class="badge">
+                    تعلّم البرمجة من الصفر
+                </div>
+
+                <h1>
+                    تعلّم البرمجة
+                </h1>
+
+                <p class="hero-text">
+                    ابدأ رحلتك في عالم البرمجة، وتعلّم HTML وCSS
+                     خطوة بخطوة، من الأساسيات حتى بناء
+                    مواقع ويب تفاعلية.
+                </p>
+
+                <div class="line"></div>
+
+                <a
+                    href="programming.html"
+                    class="enter-button"
+                    title="الانتقال إلى فهرس دروس البرمجة"
+                >
+                    دخول
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="features" aria-label="مميزات منصة تعلم البرمجة">
+
+            <article class="feature">
+
+                <div class="feature-number">01</div>
+
+                <h2>
+                    تعلّم من الصفر
+                </h2>
+
+                <p>
+                    دروس مبسطة تساعدك على فهم أساسيات البرمجة خطوة بخطوة.
+                </p>
+
+            </article>
+
+            <article class="feature">
+
+                <div class="feature-number">02</div>
+
+                <h2>
+                    تطبيقات عملية
+                </h2>
+
+                <p>
+                    طبّق ما تتعلمه من خلال كتابة الأكواد وتنفيذ المشروعات.
+                </p>
+
+            </article>
+
+            <article class="feature">
+
+                <div class="feature-number">03</div>
+
+                <h2>
+                    مسار تعليمي منظم
+                </h2>
+
+                <p>
+                    ابدأ بـ HTML ثم CSS ثم JavaScript بالترتيب الصحيح.
+                </p>
+
+            </article>
+
+        </section>
+
+        <section class="info" aria-label="ابدأ تعلم البرمجة">
+
+            <div class="info-text">
+
+                <h2>
+                    ابدأ رحلتك في البرمجة
+                </h2>
+
+                <p>
+                    تعلّم أساسيات تطوير الويب وانتقل تدريجيًا إلى
+                    بناء مشروعاتك ومواقعك الخاصة.
+                </p>
+
+            </div>
+
+            <div class="info-label">
+                تعلّم وطبّق
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-name">
+            الباشمبرمج خالد سامح
+        </div>
+
+        <div class="footer-copy">
+            جميع الحقوق محفوظة © 2026
+        </div>
+
+    </footer>
+
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .catch(error => {
+                        console.error(
+                            "تعذر تسجيل Service Worker:",
+                            error
+                        );
+                    });
+            });
+        }
+    </script>
+
+</body>
+</html>
